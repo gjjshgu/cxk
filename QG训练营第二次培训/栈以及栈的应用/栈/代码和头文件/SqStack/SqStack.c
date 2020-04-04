@@ -1,5 +1,5 @@
 //
-// Created by »ÆÙ¾Îõ on 2020/4/4.
+// Created by é»„å€¬ç†™ on 2020/4/4.
 //
 
 #include "SqStack.h"
@@ -16,44 +16,44 @@ Status initStack(SqStack *s,int sizes){
 }
 Status isEmptyStack(SqStack *s){
     if (!s->size){
-        printf("¿ÕÕ»£¡");
+        printf("ç©ºæ ˆï¼");
         return SUCCESS;
     }
-    printf("·Ç¿ÕÕ»");
+    printf("éç©ºæ ˆ");
     return ERROR;
 }
 Status getTopStack(SqStack *s,ElemType *e){
     if (flag==0){
-        printf("Äã»¹Ã»´´½¨Õ»£¡\n");
+        printf("ä½ è¿˜æ²¡åˆ›å»ºæ ˆï¼\n");
         return ERROR;
     }
     if (!(s->top+1)){
-        printf("¿ÕÕ»£¡\n");
+        printf("ç©ºæ ˆï¼\n");
         return ERROR;
     }
     *e = s->elem[s->top];
-    printf("Õ»¶¥ÔªËØÎª%d\n", *e);
+    printf("æ ˆé¡¶å…ƒç´ ä¸º%d\n", *e);
     return SUCCESS;
 }
 Status clearStack(SqStack *s){
     if (flag==0){
-        printf("Äã»¹Ã»´´½¨Õ»£¡\n");
+        printf("ä½ è¿˜æ²¡åˆ›å»ºæ ˆï¼\n");
         return ERROR;
     }
     s->top = -1;
-    printf("³É¹¦\n");
+    printf("æˆåŠŸ\n");
     return SUCCESS;
 
 }
 Status destroyStack(SqStack *s){
     if (flag==0){
-        printf("Äã»¹Ã»´´½¨Õ»£¡\n");
+        printf("ä½ è¿˜æ²¡åˆ›å»ºæ ˆï¼\n");
         return ERROR;
     }
     free(s->elem);
     free(s);
     flag = 0;
-    printf("³É¹¦£¡\n");
+    printf("æˆåŠŸï¼\n");
     return SUCCESS;
 }
 Status stackLength(SqStack *s,int *length){
@@ -62,7 +62,7 @@ Status stackLength(SqStack *s,int *length){
 }
 Status pushStack(SqStack *s,ElemType data){
 //    if (s->top == max){
-//        printf("Õ»ÒÑÂú£¡\n");
+//        printf("æ ˆå·²æ»¡ï¼\n");
 //        return ERROR;
 //    }
     s->elem[s->top+1] = data;
@@ -76,151 +76,104 @@ Status popStack(SqStack *s,ElemType *data){
 }
 void traverse(SqStack *s){
     if (flag==0){
-        printf("Äã»¹Ã»´´½¨Õ»£¡\n");
+        printf("ä½ è¿˜æ²¡åˆ›å»ºæ ˆï¼\n");
         return;
     }
     if (!(s->top+1)) {
-        printf("¿ÕÕ»£¡\n");
+        printf("ç©ºæ ˆï¼\n");
         return;
     }
-    printf("Õ»µ×--");
+    printf("æ ˆåº•--");
     for (int i = 0; i < s->top+1; ++i) {
         printf("%d--", s->elem[i]);
     }
-    printf("Õ»¶¥\n");
+    printf("æ ˆé¡¶\n");
 }
 int input(int min, int max){
     float num;
     int check = scanf("%f", &num);
     fflush(stdin);
     while (check!=1){
-        printf("Ê¦ĞÖ²»ÒªÂÒÊäÀ²£¡ÇëÖØĞÂÊäÈë£º\n");
+        printf("å¸ˆå…„ä¸è¦ä¹±è¾“å•¦ï¼è¯·é‡æ–°è¾“å…¥ï¼š\n");
         check = scanf("%f", &num);
         fflush(stdin);
     }
     num = (int)num;
     if (num < min){
-        printf("Ì«Ğ¡À²£¡×Ô¶¯È¡·¶Î§ÄÚ×îĞ¡Öµ\n");
+        printf("å¤ªå°å•¦ï¼è‡ªåŠ¨å–èŒƒå›´å†…æœ€å°å€¼\n");
         return min;
     } else if (num >max){
-        printf("Ì«´óÀ²£¡×Ô¶¯È¡·¶Î§ÄÚ×î´óÖµ\n");
+        printf("å¤ªå¤§å•¦ï¼è‡ªåŠ¨å–èŒƒå›´å†…æœ€å¤§å€¼\n");
         return max;
     }
     return num;
 }
 void screen(){
     system("cls");
-    printf("¨X¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨[\n");
-    printf("¨U                   Êı¾İÍÚ¾ò »ÆÙ¾Îõ                  ¨U\n");
-    printf("¨U*********            1.³õÊ¼»¯Õ»            *********¨U\n");
-    printf("¨U*********            2.²éÑ¯Õ»³¤            *********¨U\n");
-    printf("¨U*********            3.±éÀú´ËÕ»            *********¨U\n");
-    printf("¨U*********            4.Çå¿Õ´ËÕ»            *********¨U\n");
-    printf("¨U*********            5.´İ»Ù´ËÕ»            *********¨U\n");
-    printf("¨U*********            6.Êı¾İÈëÕ»            *********¨U\n");
-    printf("¨U*********            7.Êı¾İ³öÕ»            *********¨U\n");
-    printf("¨U*********            8.²éÑ¯Õ»¶¥            *********¨U\n");
-    printf("¨U*********            9.Çå¿ÕÆÁÄ»            *********¨U\n");
-    printf("¨U*********            0.ÍË³ö³ÌĞò            *********¨U\n");
-    printf("¨^¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨a\n");
+    printf("â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\n");
+    printf("â•‘                   æ•°æ®æŒ–æ˜ é»„å€¬ç†™                  â•‘\n");
+    printf("â•‘*********            1.åˆå§‹åŒ–æ ˆ            *********â•‘\n");
+    printf("â•‘*********            2.æŸ¥è¯¢æ ˆé•¿            *********â•‘\n");
+    printf("â•‘*********            3.éå†æ­¤æ ˆ            *********â•‘\n");
+    printf("â•‘*********            4.æ¸…ç©ºæ­¤æ ˆ            *********â•‘\n");
+    printf("â•‘*********            5.æ‘§æ¯æ­¤æ ˆ            *********â•‘\n");
+    printf("â•‘*********            6.æ•°æ®å…¥æ ˆ            *********â•‘\n");
+    printf("â•‘*********            7.æ•°æ®å‡ºæ ˆ            *********â•‘\n");
+    printf("â•‘*********            8.æŸ¥è¯¢æ ˆé¡¶            *********â•‘\n");
+    printf("â•‘*********            9.æ¸…ç©ºå±å¹•            *********â•‘\n");
+    printf("â•‘*********            0.é€€å‡ºç¨‹åº            *********â•‘\n");
+    printf("â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\n");
 }
 void init(){
     if (flag == 1){
-        printf("Õ»ÒÑ´æÔÚ£¡\n");
+        printf("æ ˆå·²å­˜åœ¨ï¼\n");
         return;
     }
     stack = (SqStack*)malloc(sizeof(SqStack));
-    printf("ÇëÊäÈëÕ»µÄ×î´óÈİÁ¿£º");
+    printf("è¯·è¾“å…¥æ ˆçš„æœ€å¤§å®¹é‡ï¼š");
     int n = input(1, 2147483647);
     initStack(stack, n);
     flag = 1;
-    printf("³É¹¦£¡\n");
+    printf("æˆåŠŸï¼\n");
 }
 void find_length(){
     if (flag==0){
-        printf("Äã»¹Ã»´´½¨Õ»£¡\n");
+        printf("ä½ è¿˜æ²¡åˆ›å»ºæ ˆï¼\n");
         return;
     }
     int length;
     stackLength(stack, &length);
-    printf("Õ»µÄÔªËØ¸öÊıÎª£º%d\nÕ»µÄ×î´óÈİÁ¿Îª£º%d\n", length, stack->size);
+    printf("æ ˆçš„å…ƒç´ ä¸ªæ•°ä¸ºï¼š%d\næ ˆçš„æœ€å¤§å®¹é‡ä¸ºï¼š%d\n", length, stack->size);
 }
 void add(){
     if (!flag){
-        printf("Äã»¹Ã»´´½¨Õ»£¡\n");
+        printf("ä½ è¿˜æ²¡åˆ›å»ºæ ˆï¼\n");
         return;
     }
-    printf("ÈëÕ»¶àÉÙ¸öÊı¾İ£¿£º");
+    printf("å…¥æ ˆå¤šå°‘ä¸ªæ•°æ®ï¼Ÿï¼š");
     int n = input(1, stack->size-stack->top-1);
     for (int i = 0; i < n; ++i) {
-        printf("ÇëÊäÈëÊı¾İ£º");
+        printf("è¯·è¾“å…¥æ•°æ®ï¼š");
         int data = input(-2147483647, 2147483647);
         pushStack(stack, data);
-        printf("³É¹¦£¡\n");
+        printf("æˆåŠŸï¼\n");
     }
 }
 void pop(){
     if (!flag){
-        printf("Äã»¹Ã»´´½¨Õ»£¡\n");
+        printf("ä½ è¿˜æ²¡åˆ›å»ºæ ˆï¼\n");
         return;
     }
     if (!(stack->top+1)){
-        printf("¿ÕÕ»£¡\n");
+        printf("ç©ºæ ˆï¼\n");
         return;
     }
-    printf("³öÕ»¶àÉÙ¸öÊı¾İ£¿£º");
+    printf("å‡ºæ ˆå¤šå°‘ä¸ªæ•°æ®ï¼Ÿï¼š");
     int n = input(1, stack->top+1);
     for (int i = 0; i < n; ++i) {
         int data;
         popStack(stack, &data);
-        printf("%dÒÑ³É¹¦³öÕ»\n", data);
+        printf("%då·²æˆåŠŸå‡ºæ ˆ\n", data);
     }
 }
-int main(void){
-    screen();
-    while (1){
-        printf("ÇëÑ¡Ôñ¹¦ÄÜ£º");
-        int choice = input(0,9);
-        switch (choice){
-            case 0:
-                return 0;
-            case 1:{
-                init();
-                break;
-            }
-            case 2:{
-                find_length();
-                break;
-            }
-            case 3:{
-                traverse(stack);
-                break;
-            }
-            case 4:{
-                clearStack(stack);
-                break;
-            }
-            case 5:{
-                destroyStack(stack);
-                break;
-            }
-            case 6:{
-                add();
-                break;
-            }
-            case 7:{
-                pop();
-                break;
-            }
-            case 8:{
-                int data;
-                getTopStack(stack, &data);
-                break;
-            }
-            case 9:{
-                screen();
-                break;
-            }
-        }
-    }
-}
+
