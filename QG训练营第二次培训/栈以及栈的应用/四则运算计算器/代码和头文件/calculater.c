@@ -231,7 +231,7 @@ char* input(char c){
                         strcat(result, sb);
                         if ((stack->data[stack->top_index]=='+'||
                              stack->data[stack->top_index]=='-') || stack->top_index==-1){
-                            push(stack, '*');
+                            push(stack, '/');
                             break;
                         }
                     }
