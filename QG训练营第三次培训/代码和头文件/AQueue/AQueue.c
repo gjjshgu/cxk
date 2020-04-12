@@ -1,5 +1,5 @@
 //
-// Created by »ÆÙ¾Îõ on 2020/4/12.
+// Created by é»„å€¬ç†™ on 2020/4/12.
 //
 
 #include "AQueue.h"
@@ -8,12 +8,13 @@
 #include <stdio.h>
 
 void InitAQueue(AQueue *Q){
-    Q->front = -1;
+    Q->front = -1; //é˜Ÿåˆ—ä¸ºç©ºã€‚å…¨éƒ¨æŒ‡å‘-1ï¼Œé•¿åº¦å½’é›¶
     Q->rear = -1;
     Q->length = 0;
 }
 void DestoryAQueue(AQueue *Q){
     for (int i = 0; i < Q->length; ++i) {
+        //éå†é‡Šæ”¾å†…å­˜ç©ºé—´
         int index = (Q->front + i) % MAXQUEUE;
         free(Q->data[index]);
     }
@@ -29,47 +30,51 @@ Status IsEmptyAQueue(const AQueue *Q){
 }
 Status GetHeadAQueue(AQueue *Q, void *e){
     if (IsEmptyAQueue(Q)==TRUE) return FALSE;
+    //æŠŠæ•°æ®ç»“æ„ä½“å¤åˆ¶åˆ°eä¸Š
     memcpy(e, Q->data[Q->front], sizeof(all_data));
     return TRUE;
 }
 int LengthAQueue(AQueue *Q){
+    //è¿”å›é•¿åº¦
     return Q->length;
 }
 Status EnAQueue(AQueue *Q, void *data){
+    //å…¥é˜Ÿ
     if (IsFullAQueue(Q)==TRUE) return FALSE;
-    Q->rear =(Q->rear+1)%MAXQUEUE;
-    if (Q->front==-1)
+    Q->rear =(Q->rear+1)%MAXQUEUE; //åè¿›ä¸€ä½
+    if (Q->front==-1) //å¦‚æœQè¿˜æ˜¯-1å°±æŒ‡å‘0
         Q->front = 0;
-    Q->data[Q->rear] = data;
-    Q->length++;
+    Q->data[Q->rear] = data; //å¤åˆ¶
+    Q->length++; //é•¿åº¦+1
     return TRUE;
 }
 Status DeAQueue(AQueue *Q){
     if (IsEmptyAQueue(Q)==TRUE) return FALSE;
-    Q->front = (Q->front+1)%MAXQUEUE;
-    Q->length--;
+    Q->front = (Q->front+1)%MAXQUEUE; //å¾€åèµ°ä¸€ä½
+    Q->length--; //é•¿åº¦-1
     return TRUE;
 }
 void ClearAQueue(AQueue *Q){
-    InitAQueue(Q);
+    InitAQueue(Q); //ç›´æ¥åˆå§‹åŒ–å°±å¥½äº†
 }
 Status TraverseAQueue(const AQueue *Q, void (*foo)(void *q)){
     if (IsEmptyAQueue(Q)==TRUE) {
-        printf("¿Õ¶ÓÁĞ£¡\n");
+        printf("ç©ºé˜Ÿåˆ—ï¼\n");
         return FALSE;
     }
-    printf("¶ÓÍ·->");
+    printf("é˜Ÿå¤´->");
     for (int i = 0; i < Q->length; ++i) {
-        int index = (Q->front + i) % MAXQUEUE;
+        //éå†é˜Ÿåˆ—
+        int index = (Q->front + i) % MAXQUEUE; //iä¸æ–­é€’å¢ï¼ŒåŠ ä¸Šå‰ç´¢å¼•åå–æ¨¡å¯åšéå†ç´¢å¼•
         (*foo)(Q->data[index]);
         printf("->");
     }
-    printf("¶ÓÎ²\n");
+    printf("é˜Ÿå°¾\n");
     return TRUE;
 }
 void APrint(void *q){
     all_data* p = (all_data*)q;
-    if (p->count[0]==1)
+    if (p->count[0]==1) //è®°å½•ç»“æ„ä½“ä¸­åŒ…å«ä»€ä¹ˆå…ƒç´ ï¼Œå¹¶å°†å…¶æ‰“å°
         printf("%d(int)", p->a);
     else if (p->count[1]==1)
         printf("%f(float)", p->b);
@@ -78,57 +83,63 @@ void APrint(void *q){
     else
         printf("%lf(double)", p->d);
 }
-AQueue *aqueue;
+//å…¨å±€å˜é‡
+AQueue *aqueue; 
 int flag = 0;
+//é˜²å´©æºƒ
 double input(int min, int max) {
     double num;
     int check = scanf("%lf", &num);
     fflush(stdin);
     while (check!=1){
-        printf("Ê¦ĞÖ²»ÒªÂÒÊäÀ²£¡ÇëÖØĞÂÊäÈë£º");
+        printf("å¸ˆå…„ä¸è¦ä¹±è¾“å•¦ï¼è¯·é‡æ–°è¾“å…¥ï¼š");
         check = scanf("%lf", &num);
-        fflush(stdin);
+        fflush(stdin); //åƒæ‰å›è½¦
     }
+    // èŒƒå›´æ§åˆ¶
     if (num < min){
-        printf("Ì«Ğ¡À²£¡×Ô¶¯È¡·¶Î§ÄÚ×îĞ¡Öµ\n");
+        printf("å¤ªå°å•¦ï¼è‡ªåŠ¨å–èŒƒå›´å†…æœ€å°å€¼\n");
         return (double)min;
     } else if (num >max){
-        printf("Ì«´óÀ²£¡×Ô¶¯È¡·¶Î§ÄÚ×î´óÖµ\n");
+        printf("å¤ªå¤§å•¦ï¼è‡ªåŠ¨å–èŒƒå›´å†…æœ€å¤§å€¼\n");
         return (double)max;
     }
     return num;
 }
+//åˆå§‹åŒ–ç»“æ„ä½“ä¸­çš„è®°å½•æ•°ç»„
 void initdata(all_data *p){
     for (int i = 0; i < 4; ++i) {
         p->count[i] = 0;
     }
 }
+//åˆå§‹åŒ–é˜Ÿåˆ—
 void init(){
     if (flag==1){
-        printf("¶ÓÁĞÒÑ´æÔÚ£¡\n");
+        printf("é˜Ÿåˆ—å·²å­˜åœ¨ï¼\n");
         return;
     }
     aqueue = (AQueue*)malloc(sizeof(AQueue));
     InitAQueue(aqueue);
-    printf("³É¹¦\n");
-    flag = 1;
+    printf("æˆåŠŸ\n");
+    flag = 1; //è®°å½•é˜Ÿåˆ—æ˜¯å¦å­˜åœ¨
 }
 void push(){
     if (!flag){
-        printf("Äú»¹Ã»ÓĞ´´½¨¶ÓÁĞ£¡\n");
+        printf("æ‚¨è¿˜æ²¡æœ‰åˆ›å»ºé˜Ÿåˆ—ï¼\n");
         return;
     }
     if (IsFullAQueue(aqueue)==TRUE){
-        printf("¶ÓÁĞÒÑÂú£¡\n");
+        printf("é˜Ÿåˆ—å·²æ»¡ï¼\n");
         return;
-    }
+    } //ç”³è¯·ä¸€ä¸ªæ•°æ®ç»“æ„ä½“ï¼ŒåŒ…å«å„ç§æ•°æ®ç±»å‹
     all_data *data = (all_data*)malloc(sizeof(all_data));
-    printf("1.int\n2.float\n3.string\n4.double\nÄúÏëÊäÈëµÄÀàĞÍÊÇ£º");
+    printf("1.int\n2.float\n3.string\n4.double\næ‚¨æƒ³è¾“å…¥çš„ç±»å‹æ˜¯ï¼š");
     int n = input(1, 4);
     initdata(data);
     data->count[n-1] = 1;
-    printf("ÇëÊäÈëÊı¾İ£º");
+    printf("è¯·è¾“å…¥æ•°æ®ï¼š");
     switch (n){
+            //æŒ‰éœ€è¾“å…¥ç»“æ„ä½“
         case 1:
             data->a = (int)input(-2147483647, 2147483647);
             break;
@@ -141,116 +152,77 @@ void push(){
         case 4:
             data->d = input(-2147483647, 2147483647);
             break;
-    }
+    } //å…¥é˜Ÿå‡½æ•°
     EnAQueue(aqueue, (void*)data);
-    printf("³É¹¦\n");
+    printf("æˆåŠŸ\n");
 }
 void pop(){
     if (!flag){
-        printf("Äã»¹Ã»ÓĞ´´½¨¶ÓÁĞ\n");
+        printf("ä½ è¿˜æ²¡æœ‰åˆ›å»ºé˜Ÿåˆ—\n");
         return;
     }
     if (!aqueue->length){
-        printf("¿Õ¶ÓÁĞ£¡\n");
+        printf("ç©ºé˜Ÿåˆ—ï¼\n");
         return;
-    }
+    } //å‡ºé˜Ÿå‡½æ•°
     DeAQueue(aqueue);
-    printf("³É¹¦\n");
+    printf("æˆåŠŸ\n");
 }
 void find_head(){
     if (!flag){
-        printf("Äã»¹Ã»ÓĞ´´½¨¶ÓÁĞ\n");
+        printf("ä½ è¿˜æ²¡æœ‰åˆ›å»ºé˜Ÿåˆ—\n");
         return;
     }
     if (!aqueue->length){
-        printf("¿Õ¶ÓÁĞ£¡\n");
+        printf("ç©ºé˜Ÿåˆ—ï¼\n");
         return;
     }
     all_data *head_data;
+    //ç”³è¯·ä¸€ä¸ªå†…å­˜ç©ºé—´ï¼Œç”¨äºæ‰¿æ¥å¤åˆ¶åçš„é˜Ÿå¤´æ•°æ®ç»“æ„ä½“
     head_data = (all_data*)malloc(sizeof(all_data));
     GetHeadAQueue(aqueue, head_data);
-    printf("¶ÓÍ·ÔªËØÎª:");
-    APrint(head_data);
+    printf("é˜Ÿå¤´å…ƒç´ ä¸º:");
+    APrint(head_data); //æ‰“å°ç»“æ„ä½“ä¸­çš„å…ƒç´ 
     printf("\n");
+    free(head_data); //é‡Šæ”¾ï¼Œæ¯•ç«Ÿå·²ç»æ²¡ç”¨äº†
 }
 void traverse(){
     if (!flag){
-        printf("Äã»¹Ã»ÓĞ´´½¨¶ÓÁĞ\n");
+        printf("ä½ è¿˜æ²¡æœ‰åˆ›å»ºé˜Ÿåˆ—\n");
         return;
     }
-    TraverseAQueue(aqueue, APrint);
+    TraverseAQueue(aqueue, APrint); //éå†å‡½æ•°
 }
 void destory(){
     if (!flag){
-        printf("Äã»¹Ã»ÓĞ´´½¨¶ÓÁĞ\n");
+        printf("ä½ è¿˜æ²¡æœ‰åˆ›å»ºé˜Ÿåˆ—\n");
         return;
-    }
+    }//æ‘§æ¯é˜Ÿåˆ—å‡½æ•°
     DestoryAQueue(aqueue);
-    flag = 0;
-    printf("³É¹¦£¡\n");
+    flag = 0; //æ ‡è®°ä¸ºæœªåˆå§‹åŒ–
+    printf("æˆåŠŸï¼\n");
 }
 void clea(){
     if (!flag){
-        printf("Äã»¹Ã»ÓĞ´´½¨¶ÓÁĞ\n");
+        printf("ä½ è¿˜æ²¡æœ‰åˆ›å»ºé˜Ÿåˆ—\n");
         return;
-    }
+    } //æ¸…ç©ºå‡½æ•°
     ClearAQueue(aqueue);
-    printf("³É¹¦£¡\n");
+    printf("æˆåŠŸï¼\n");
 }
 void screen(){
     system("cls");
-    printf("¨X====================================================¨[\n");
-    printf("¨U                   Êı¾İÍÚ¾ò »ÆÙ¾Îõ                  ¨U\n");
-    printf("¨Uxxxxxxxxx            1.´´½¨¶ÓÁĞ            xxxxxxxxx¨U\n");
-    printf("¨U---------            2.²éÑ¯¶Ó³¤            ---------¨U\n");
-    printf("¨Uxxxxxxxxx            3.±éÀú¶ÓÁĞ            xxxxxxxxx¨U\n");
-    printf("¨U---------            4.Çå¿Õ¶ÓÁĞ            ---------¨U\n");
-    printf("¨Uxxxxxxxxx            5.´İ»Ù¶ÓÁĞ            xxxxxxxxx¨U\n");
-    printf("¨U---------            6.Êı¾İÈë¶Ó            ---------¨U\n");
-    printf("¨Uxxxxxxxxx            7.Êı¾İ³ö¶Ó            xxxxxxxxx¨U\n");
-    printf("¨U---------            8.²éÑ¯¶ÓÍ·            ---------¨U\n");
-    printf("¨Uxxxxxxxxx            9.Çå¿ÕÆÁÄ»            xxxxxxxxx¨U\n");
-    printf("¨U---------            0.ÍË³ö³ÌĞò            ---------¨U\n");
-    printf("¨^====================================================¨a\n");
+    printf("â•”====================================================â•—\n");
+    printf("â•‘                   æ•°æ®æŒ–æ˜ é»„å€¬ç†™                  â•‘\n");
+    printf("â•‘xxxxxxxxx            1.åˆ›å»ºé˜Ÿåˆ—            xxxxxxxxxâ•‘\n");
+    printf("â•‘---------            2.æŸ¥è¯¢é˜Ÿé•¿            ---------â•‘\n");
+    printf("â•‘xxxxxxxxx            3.éå†é˜Ÿåˆ—            xxxxxxxxxâ•‘\n");
+    printf("â•‘---------            4.æ¸…ç©ºé˜Ÿåˆ—            ---------â•‘\n");
+    printf("â•‘xxxxxxxxx            5.æ‘§æ¯é˜Ÿåˆ—            xxxxxxxxxâ•‘\n");
+    printf("â•‘---------            6.æ•°æ®å…¥é˜Ÿ            ---------â•‘\n");
+    printf("â•‘xxxxxxxxx            7.æ•°æ®å‡ºé˜Ÿ            xxxxxxxxxâ•‘\n");
+    printf("â•‘---------            8.æŸ¥è¯¢é˜Ÿå¤´            ---------â•‘\n");
+    printf("â•‘xxxxxxxxx            9.æ¸…ç©ºå±å¹•            xxxxxxxxxâ•‘\n");
+    printf("â•‘---------            0.é€€å‡ºç¨‹åº            ---------â•‘\n");
+    printf("â•š====================================================â•\n");
 }
-//int main(void){
-//    screen();
-//    while (1){
-//        printf("ÇëÑ¡Ôñ¹¦ÄÜ£º");
-//        int n = input(0, 9);
-//        switch (n){
-//            case 0:
-//                return 0;
-//            case 1:
-//                init();
-//                break;
-//            case 2:
-//                if (!flag){
-//                    printf("Äã»¹Ã»ÓĞ´´½¨¶ÓÁĞ\n");
-//                    break;
-//                }
-//                printf("¶ÓÁĞ³¤¶ÈÎª: %d\n", LengthAQueue(aqueue));
-//                break;
-//            case 3:
-//                traverse();
-//                break;
-//            case 4:
-//                clea();
-//                break;
-//            case 5:
-//                destory();
-//                break;
-//            case 6:
-//                push();
-//                break;
-//            case 7:
-//                pop();
-//                break;
-//            case 8:
-//                find_head();
-//                break;
-//            case 9:
-//                screen();
-//        }
-//    }
-//}
