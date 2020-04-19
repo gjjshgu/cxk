@@ -1,54 +1,54 @@
 //
-// Created by »ÆÙ¾Îõ on 2020/4/19.
+// Created by é»„å€¬ç†™ on 2020/4/19.
 //
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-void create_long_data(int n){
-    FILE *fpWrite=fopen("data_long.txt","w");
+void create_long_data(int n){ //å†™å…¥é•¿æ•°ç»„
+    FILE *fpWrite=fopen("data_long.txt","w"); //æ‰“å¼€æ–‡ä»¶
     if(fpWrite==NULL) {
-        printf("Ğ´ÈëÊ§°Ü\n");
+        printf("å†™å…¥å¤±è´¥\n");
         return;
     }
     srand((unsigned) time(NULL));
     for (int i = 0; i < n; ++i) {
-        fprintf(fpWrite,"%d ",rand() % 400);
+        fprintf(fpWrite,"%d ",rand() % 400); //éå†ï¼Œå†™å…¥éšæœºç”Ÿæˆçš„æ•°æ®
     }
-    fclose(fpWrite);
-    printf("³É¹¦£¡\n");
+    fclose(fpWrite); //å…³é—­
+    printf("æˆåŠŸï¼\n");
 }
-void create_small_data(int n){
+void create_small_data(int n){ //å†™å…¥n*100çš„äºŒç»´æ•°ç»„
     FILE *fpWrite=fopen("data_small.txt","w");
     if(fpWrite==NULL) {
-        printf("Ğ´ÈëÊ§°Ü\n");
+        printf("å†™å…¥å¤±è´¥\n");
         return;
     }
     srand((unsigned) time(NULL));
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < 100; ++j) {
-            fprintf(fpWrite,"%d ",rand() % 400);
+            fprintf(fpWrite,"%d ",rand() % 400); //éå†ï¼Œå†™å…¥éšæœºç”Ÿæˆçš„æ•°æ®
         }
         fprintf(fpWrite,"\n");
     }
-    fclose(fpWrite);
-    printf("³É¹¦£¡\n");
+    fclose(fpWrite); //å…³é—­
+    printf("æˆåŠŸï¼\n");
 }
 void screen1(){
-    printf("¨X=====================================================¨[\n");
-    printf("¨U                   Êı¾İÍÚ¾ò »ÆÙ¾Îõ                   ¨U\n");
-    printf("¨U*********        1¡¢1 x 1e4 ´óÊı¾İÉú³É      *********¨U\n");
-    printf("¨U*********        2¡¢1 x 5e4 ´óÊı¾İÉú³É      *********¨U\n");
-    printf("¨U*********        3¡¢1 x 2e5 ´óÊı¾İÉú³É      *********¨U\n");
-    printf("¨U*********     4¡¢100 x 1e5 ´óÁ¿Ğ¡Êı×éÉú³É   *********¨U\n");
-    printf("¨^=====================================================¨a\n");
+    printf("â•”=====================================================â•—\n");
+    printf("â•‘                   æ•°æ®æŒ–æ˜ é»„å€¬ç†™                   â•‘\n");
+    printf("â•‘*********        1ã€1 x 1e4 å¤§æ•°æ®ç”Ÿæˆ      *********â•‘\n");
+    printf("â•‘*********        2ã€1 x 5e4 å¤§æ•°æ®ç”Ÿæˆ      *********â•‘\n");
+    printf("â•‘*********        3ã€1 x 2e5 å¤§æ•°æ®ç”Ÿæˆ      *********â•‘\n");
+    printf("â•‘*********     4ã€100 x 1e5 å¤§é‡å°æ•°ç»„ç”Ÿæˆ   *********â•‘\n");
+    printf("â•š=====================================================â•\n");
 }
-int input(){
+int input(){ //é˜²æ­¢å´©æºƒ
 	float num;
     int check = scanf("%f", &num);
     fflush(stdin);
     while (check!=1){
-        printf("Ê¦ĞÖ²»ÒªÂÒÊäÀ²£¡ÇëÖØĞÂÊäÈë£º\n");
+        printf("å¸ˆå…„ä¸è¦ä¹±è¾“å•¦ï¼è¯·é‡æ–°è¾“å…¥ï¼š\n");
         check = scanf("%f", &num);
         fflush(stdin);
     }
@@ -61,7 +61,7 @@ int input(){
 int main()
 {
 	screen1();
-	printf("ÇëÑ¡Ôñ¹¦ÄÜ>>");
+	printf("è¯·é€‰æ‹©åŠŸèƒ½>>");
 	int choice = input();
 	switch (choice){
 		case 1:
@@ -79,7 +79,7 @@ int main()
 		case -1:
 			break;
 	}
-    printf("Çë°´ÈÎÒâ¼üÒÔ¼ÌĞø....");
+    printf("è¯·æŒ‰ä»»æ„é”®ä»¥ç»§ç»­....");
 	getchar();  
     return 0;
 }
