@@ -1,5 +1,5 @@
 //
-// Created by »ÆÙ¾Îõ on 2020/4/25.
+// Created by é»„å€¬ç†™ on 2020/4/25.
 //
 
 #include "LinkBiTree.h"
@@ -7,23 +7,25 @@
 #include <string.h>
 #include <stdlib.h>
 
-
+// åˆå§‹åŒ–
 Status InitBiTree(BiTree *T){
     *T = NULL;
     return SUCCESS;
 }
+// æ‘§æ¯äºŒå‰æ ‘
 Status DestroyBiTree(BiTree T){
     if (T){
         if (T->lchild)
             DestroyBiTree(T->lchild);
         if (T->rchild)
             DestroyBiTree(T->rchild);
-        free(T);
+        free(T); //ååºéå†
     }
     return SUCCESS;
 }
+// å‰åºéå†åˆ›å»ºäºŒå‰æ ‘
 Status CreateBiTree(BiTree *T, char* definition){
-    if (*definition == '#'){
+    if (*definition == '#'){ // #è¡¨ç©ºå­æ ‘
         *T = NULL;
         return SUCCESS;
     }
@@ -37,6 +39,7 @@ Status CreateBiTree(BiTree *T, char* definition){
     CreateBiTree(&(*T)->rchild, &c);
     return SUCCESS;
 }
+// å‰åºéå†
 Status PreOrderTraverse(BiTree T, Status (*visit)(TElemType e)){
     if (!T)
         return SUCCESS;
@@ -45,6 +48,7 @@ Status PreOrderTraverse(BiTree T, Status (*visit)(TElemType e)){
     PreOrderTraverse(T->rchild, (*visit));
     return SUCCESS;
 }
+// ä¸­åºéå†
 Status InOrderTraverse(BiTree T, Status (*visit)(TElemType e)){
     if (!T)
         return SUCCESS;
@@ -61,24 +65,25 @@ Status PostOrderTraverse(BiTree T, Status (*visit)(TElemType e)){
     (*visit)(T->data);
     return SUCCESS;
 }
+// å±‚æ¬¡éå†
 Status LevelOrderTraverse(BiTree T, Status (*visit)(TElemType e)){
-    BiTree temp[100];
-    int in=0, out=0;
+    BiTree temp[100]; //ç®€æ˜“é˜Ÿåˆ—
+    int in=0, out=0;  //é˜Ÿå°¾ é˜Ÿå¤´
     temp[in++] = T;
     while (in > out){
         if (temp[out]){
             (*visit)(temp[out]->data);
-            temp[in++] = temp[out]->lchild;
-            temp[in++] = temp[out]->rchild;
+            temp[in++] = temp[out]->lchild; //å…¥é˜Ÿ
+            temp[in++] = temp[out]->rchild; //å…¥é˜Ÿ
         }
         out++;
     }
     printf("\n");
     return SUCCESS;
 }
-int f=0, k=0, flag=0;
-char s[100];
-int Value(BiTree T){
+int f=0, k=0, flag=0; //åˆ¤æ–­ç”¨
+char s[100]; //å‚¨å­˜å‰ç¼€è¡¨è¾¾å¼
+int Value(BiTree T){ //è®¡ç®—å‰ç¼€è¡¨è¾¾å¼
     T = (BiTree)malloc(sizeof(BiTNode));
     if (k>=strlen(s)){
         f = 1;
@@ -88,7 +93,7 @@ int Value(BiTree T){
     if (c-'0'>=0 && c-'0'<='9') {
         return c - '0';
     }
-    int a = Value(T->lchild), b = Value(T->rchild), res=0;
+    int a = Value(T->lchild), b = Value(T->rchild), res=0; // å·¦å³å­æ ‘å€¼è·å–
     free(T);
     if (c == '+')
         res = a+b;
@@ -103,29 +108,31 @@ int Value(BiTree T){
         }
         res = a / b;
     }
-    return res;
+    return res; // è¿ç®—åè¿”å›ç»“æœ
 }
+// æ‰“å°ç»“ç‚¹
 Status visit(TElemType data){
     printf(" %c ", data);
     return SUCCESS;
 }
+// è¿­ä»£å‰åºéå†
 Status pre(BiTree T, Status (*visit)(TElemType e)){
-    BiTree stack[100];
-    int i = -1;
+    BiTree stack[100]; //ç®€æ˜“æ ˆ
+    int i = -1; //æ ˆé¡¶å…ƒç´ ç´¢å¼•
     BiTree p = T;
-    while (p || i!=-1){
+    while (p || i!=-1){ //pä¸ä¸ºç©ºåˆ‡æˆ–è€…æ ˆä¸ä¸ºç©º
         if (p){
-            stack[++i] = p;
+            stack[++i] = p; //å…¥æ ˆ
             (*visit)(p->data);
             p = p->lchild;
         } else{
-            p = stack[i--]->rchild;
+            p = stack[i--]->rchild; //å‡ºæ ˆ
         }
     }
     printf("\n");
     return SUCCESS;
 }
-Status in(BiTree T, Status (*visit)(TElemType e)){
+Status in(BiTree T, Status (*visit)(TElemType e)){ //å’Œå‰åºå·®ä¸å¤šå§
     BiTree stack[100];
     int i = -1;
     BiTree p = T;
@@ -143,19 +150,19 @@ Status in(BiTree T, Status (*visit)(TElemType e)){
     return SUCCESS;
 }
 Status post(BiTree T, Status (*visit)(TElemType e)){
-    BiTree stack[100];
+    BiTree stack[100]; //ç®€æ˜“æ ˆ
     int i = 0;
-    BiTree p = T, cur = NULL;
+    BiTree p = T, cur = NULL; //ä¿å­˜ä¸Šä¸€ä¸ªç»“ç‚¹
     stack[i] = p;
     while (i != -1){
-        p = stack[i];
-        if ((!p->lchild && !p->rchild) || (cur==p->lchild||cur==p->rchild)){
+        p = stack[i]; //è·å–æ ˆé¡¶å…ƒç´ 
+        if ((!p->lchild && !p->rchild) || (cur==p->lchild||cur==p->rchild)){ //å¶å­ç»“ç‚¹æˆ–è€…å‰ä¸€ä¸ªç»“ç‚¹ä¸ºå½“å‰ç»“ç‚¹çš„å·¦ç»“ç‚¹æˆ–å³ç»“ç‚¹
             (*visit)(p->data);
             p = stack[i--];
             cur = p;
         } else{
-            if (p->rchild)
-                stack[++i] = p->rchild;
+            if (p->rchild) //éç©ºåˆ™å…¥æ ˆ
+                stack[++i] = p->rchild; //å…¥æ ˆ
             if (p->lchild)
                 stack[++i] = p->lchild;
         }
@@ -165,7 +172,7 @@ Status post(BiTree T, Status (*visit)(TElemType e)){
 }
 void calculator(){
     int i = 0;
-    printf("ÇëÊäÈëÇ°×º±í´ïÊ½£¬×Ö·ûÖ®¼ä´ø¿Õ¸ñ£¬Íê³Éºó½áÎ²ÊäÈë#\n£¨ÀıÈç£º+ + 2 * 3 - 7 4 / 8 4 #£©\n£º");
+    printf("è¯·è¾“å…¥å‰ç¼€è¡¨è¾¾å¼ï¼Œå­—ç¬¦ä¹‹é—´å¸¦ç©ºæ ¼ï¼Œå®Œæˆåç»“å°¾è¾“å…¥#\nï¼ˆä¾‹å¦‚ï¼š+ + 2 * 3 - 7 4 / 8 4 #ï¼‰\nï¼š");
     while (1){
         scanf(" %c", &s[i]);
         if (s[i] == '#'){
@@ -176,14 +183,14 @@ void calculator(){
     }
     BiTree T = (BiTree)malloc(sizeof(BiTNode));
     int sum = Value(T);
-    printf("½á¹ûÎª£º%d\n", sum);
+    printf("ç»“æœä¸ºï¼š%d\n", sum);
 }
 int input(){
     float num;
     int check = scanf("%f", &num);
     fflush(stdin);
     while (check!=1){
-        printf("Ê¦ĞÖ²»ÒªÂÒÊäÀ²£¡ÇëÖØĞÂÊäÈë£º\n");
+        printf("å¸ˆå…„ä¸è¦ä¹±è¾“å•¦ï¼è¯·é‡æ–°è¾“å…¥ï¼š\n");
         check = scanf("%f", &num);
         fflush(stdin);
     }
@@ -194,17 +201,17 @@ int input(){
 }
 void screen(){
 	system("cls");
-    printf("¨X======================================================¨[\n");
-    printf("¨U                   Êı¾İÍÚ¾ò »ÆÙ¾Îõ                    ¨U\n");
-    printf("¨U*********          1.´´½¨¶ş²æÊ÷              *********¨U\n");
-    printf("¨U*********          2.ÏÈĞò±éÀú                *********¨U\n");
-    printf("¨U*********          3.ÖĞĞò±éÀú                *********¨U\n");
-    printf("¨U*********          4.ºóĞò±éÀú                *********¨U\n");
-    printf("¨U*********          5.²ã´Î±éÀú                *********¨U\n");
-    printf("¨U*********          6.´İ»Ù¶ş²æÊ÷              *********¨U\n");
-    printf("¨U*********          7.Ç°×º±í´ï¼ÆËãÆ÷          *********¨U\n");
-    printf("¨U*********          8.Çå¿ÕÆÁÄ»                *********¨U\n");
-    printf("¨U*********          9.ÍË³ö³ÌĞò                *********¨U\n");
-    printf("¨^======================================================¨a\n");
+    printf("â•”======================================================â•—\n");
+    printf("â•‘                   æ•°æ®æŒ–æ˜ é»„å€¬ç†™                    â•‘\n");
+    printf("â•‘*********          1.åˆ›å»ºäºŒå‰æ ‘              *********â•‘\n");
+    printf("â•‘*********          2.å…ˆåºéå†                *********â•‘\n");
+    printf("â•‘*********          3.ä¸­åºéå†                *********â•‘\n");
+    printf("â•‘*********          4.ååºéå†                *********â•‘\n");
+    printf("â•‘*********          5.å±‚æ¬¡éå†                *********â•‘\n");
+    printf("â•‘*********          6.æ‘§æ¯äºŒå‰æ ‘              *********â•‘\n");
+    printf("â•‘*********          7.å‰ç¼€è¡¨è¾¾è®¡ç®—å™¨          *********â•‘\n");
+    printf("â•‘*********          8.æ¸…ç©ºå±å¹•                *********â•‘\n");
+    printf("â•‘*********          9.é€€å‡ºç¨‹åº                *********â•‘\n");
+    printf("â•š======================================================â•\n");
 }
 
